@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, UserManager as BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser, 
+    UserManager as BaseUserManager)
 
 
 class UserManager(BaseUserManager):
@@ -15,6 +17,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email=email, password=password, **extra_fields)
         user.is_staff = True
         user.is_superuser = True
+        user.save(using=self._db)
         return user
 
 
